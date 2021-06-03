@@ -12,5 +12,3 @@ rm node-$VERSION-$DISTRO.tar.xz
 # Set the environment variable ~/.profile, add below to the end
 echo "export PATH=/usr/local/lib/nodejs/node-$VERSION-$DISTRO/bin:\$PATH" >> ~/.profile
 
-# Refresh profile
-# . ~/.profile
