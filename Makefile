@@ -16,5 +16,17 @@ env-golang:
 env-nodejs:
 	@. env/shell-scripts/nodejs.sh
 
+env-portainer:
+	@docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v ~/docker-storage/portainer-data:/data portainer/portainer-ce
+
+env-ubuntu:
+	@docker run -d -it --name=ubuntu -v /var/run/docker.sock:/var/run/docker.sock -v ~/docker-storage/ubuntu:/home/share ubuntu
+
+docker-ubuntu-exec:
+	@docker exec -it ubuntu /bin/bash
+
+docker-ubuntu-clone-workspace:
+	@rm -rf ~/docker-storage/ubuntu/* && cp -r /mnt/hgfs/workspace ~/docker-storage/ubuntu/workpace
+
 help:
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
