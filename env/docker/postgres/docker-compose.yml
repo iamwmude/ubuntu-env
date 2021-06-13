@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/docker-storage/db-data:/var/lib/postgresql/data
+    environment:
+      TZ: "UTC"
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "ABcd_1234"
+    command:
+      - "postgres"
+      - "-c"
+      - "max_connections=1000"
+      - "-c"
+      - "shared_buffers=2GB"
+    restart: always
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:latest
+    ports:
+      - 30080:80
+    restart: always
+    user: "0:"
+    volumes:
+      - ~/docker-storage/pgadmin-data:/var/lib/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@bb.cc"
+      PGADMIN_DEFAULT_PASSWORD: "ABcd_1234"
+    deploy:
+        resources:
+            limits:
+              cpus: 4.00
+              memory: "4096M"

@@ -28,5 +28,10 @@ docker-ubuntu-exec:
 docker-ubuntu-clone-workspace:
 	@rm -rf ~/docker-storage/ubuntu/* && cp -r /mnt/hgfs/workspace ~/docker-storage/ubuntu/workpace
 
+env-postgres:
+	@cd env/docker/postgres && \
+		docker-compose down && \
+		docker-compose up -d
+
 help:
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
